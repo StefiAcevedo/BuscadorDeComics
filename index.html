@@ -26,22 +26,38 @@
     <!-- links -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header>
-        <h1>Rick and Morty Explorer</h1>
-        <input type="text" id="search" placeholder="Buscar personaje...">
+<body class="bg-slate-50 text-white mx-0">
+    <header class="py-4	bg-slate-800">
+        <h1 class="text-5xl text-center font-title text-purple-500">ADA Comics</h1>
     </header>
+    <!-- slider principal -->
+    <div class="hero">
+    </div>
+    <main class="p-6 px-4	">
+        <div class="flex justify-between justify-between flex-end flex-col">
+            <h2 class="text-stone-900 text-2xl">Busca tu comic</h2>
+            <div><!-- buscador general -->
+                <div class="mt-4 flex space-x-4 py-0"><!-- componente buscador-->
+                    <input type="text" id="search" placeholder="Buscar ⚡" class="p-2 rounded-md text-black border-solid	border-slate-200 border-2">
+                </div>
+                <div><!-- contiene los filtros-->
+                    <div></div><!-- filtros-->
+                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-6 rounded-md justify-end">Buscar</button>
+                </div>
+            </div>
+        </div>
 
-    <main>
-        <section id="results">
-            <!-- Aquí se mostrarán los personajes -->
+
+
+        <section id="results" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Acá van los comics :) -->
         </section>
     </main>
 
-    <footer><!-- footer -->
-        <p>Gracias por buscar tu comic 💜</p>
+    <footer class="bg-gray-800 py-4 text-center"><!-- footer -->
+        <p class="text-white">Gracias por buscar tu comic 💜</p>
     </footer>
-
-    <script src="main.js"></script>
+    <!-- links -->
+    <script src="index.js"></script>
 </body>
 </html>
