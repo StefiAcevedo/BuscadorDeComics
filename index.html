@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>tituloprueba</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty Comics</title>
+    <link rel="icon" type="image/png" href="imagenes/favicon-android-chrome-512x512.png"><!-- icono favicon -->
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Open Sans', 'sans-serif'],
+              title: ['Bebas Neue', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <!-- tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><!-- tipografía -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- links -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <header>
+        <h1>Rick and Morty Explorer</h1>
+        <input type="text" id="search" placeholder="Buscar personaje...">
+    </header>
+
+    <main>
+        <section id="results">
+            <!-- Aquí se mostrarán los personajes -->
+        </section>
+    </main>
+
+    <footer><!-- footer -->
+        <p>Gracias por buscar tu comic 💜</p>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
