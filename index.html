@@ -33,7 +33,7 @@
         <h1 class="text-5xl text-center font-title text-orange-300">ADA Comics</h1>
     </header>
     <!-- slider principal -->
-    <div class="swiper-container hero h-64 relative">
+    <div class="swiper swiper-container hero h-64 relative">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <img src="/imagenes/hero.png" class="w-full h-full object-cover">
@@ -45,20 +45,22 @@
                 <img src="/imagenes/hero-3.png" class="w-full h-full object-cover">
             </div>
         </div>
+        <!-- Agregamos el paginador -->
+        <div class="swiper-pagination"></div>
     </div>
 
     <main class="p-6 px-4	">
-        <div class="flex justify-between justify-between flex-end flex-col">
-            <h2 class="text-stone-900 text-2xl">¡Encuentra tu próxima aventura!</h2><!-- titulo -->
+        <div class="flex flex-col items-start">
+            <h2 class="text-stone-900 text-2xl text-center">¡Encuentra tu próxima aventura!</h2><!-- titulo -->
             <div><!-- buscador general -->
                 <div class="mt-4 flex space-x-4 py-0"><!-- componente buscador-->
-                    <input type="text" id="search" placeholder="Busca tu comic ⚡" class="p-2 rounded-md text-black border-solid	border-slate-200 border-2">
+                    <input type="text" id="search" placeholder="Busca tu comic ⚡" class="w-[292px] p-2 rounded-md text-black border-solid border-slate-200 border-2">
                 </div>
                 <div><!-- contenedor de filtros-->
                     <!-- filtros-->
                     <div class="mt-4 flex space-x-4 py-0 items-center">
                         <!-- Filtro por Tipo -->
-                        <select id="filter-type" class="p-2 rounded-md text-black border-solid border-slate-200 border-2">
+                        <select id="filter-type" class="p-2 rounded-md text-black border-slate-200 border-2">
                             <option value="">Todos los tipos</option>
                             <option value="character">Personajes</option>
                             <option value="location">Ubicaciones</option>
@@ -94,16 +96,16 @@
     <!-- para la animación del slider hero -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      var swiper = new Swiper(".swiper-container", {
-        loop: true, // Hace que el slider sea infinito
-        autoplay: {
-          delay: 3000, // Cambia cada 3 segundos
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-      });
+        var swiper = new Swiper(".swiper-container", {
+          loop: true, // Hace que el slider sea animado
+          autoplay: {
+            delay: 3000, // Cambia cada 3 segundos
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
     </script>
     
 </body>
