@@ -25,17 +25,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- links -->
     <link rel="stylesheet" href="styles.css">
+    <!-- para el slider animado -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 <body class="bg-slate-50 text-white mx-0">
     <header class="py-4	bg-slate-800">
-        <h1 class="text-5xl text-center font-title text-purple-500">ADA Comics</h1>
+        <h1 class="text-5xl text-center font-title text-orange-300">ADA Comics</h1>
     </header>
     <!-- slider principal -->
-    <div class="hero">
+    <div class="swiper-container hero h-64 relative">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/imagenes/hero.png" class="w-full h-full object-cover">
+            </div>
+            <div class="swiper-slide">
+                <img src="/imagenes/hero-2.jpeg" class="w-full h-full object-cover">
+            </div>
+            <div class="swiper-slide">
+                <img src="/imagenes/hero-3.png" class="w-full h-full object-cover">
+            </div>
+        </div>
     </div>
+
     <main class="p-6 px-4	">
         <div class="flex justify-between justify-between flex-end flex-col">
-            <h2 class="text-stone-900 text-2xl">Encuentra tu próxima aventura</h2><!-- titulo -->
+            <h2 class="text-stone-900 text-2xl">¡Encuentra tu próxima aventura!</h2><!-- titulo -->
             <div><!-- buscador general -->
                 <div class="mt-4 flex space-x-4 py-0"><!-- componente buscador-->
                     <input type="text" id="search" placeholder="Busca tu comic ⚡" class="p-2 rounded-md text-black border-solid	border-slate-200 border-2">
@@ -60,7 +74,7 @@
                         </select>
                     </div>
                     <!-- botón de busqueda -->
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-6 rounded-md justify-end">Explorar</button>
+                    <button class="bg-orange-500 hover:bg-green-600 text-white px-4 py-2 my-6 rounded-md justify-end">Explorar</button>
                 </div>
             </div>
         </div>
@@ -72,9 +86,25 @@
 
     <!-- footer -->
     <footer class="bg-gray-800 py-4 text-center">
-        <p class="text-white">Gracias por visitarnos 💜</p>
+        <p class="text-orange-200">Gracias por visitarnos 🧡</p>
     </footer>
     <!-- links -->
     <script src="index.js"></script>
+
+    <!-- para la animación del slider hero -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      var swiper = new Swiper(".swiper-container", {
+        loop: true, // Hace que el slider sea infinito
+        autoplay: {
+          delay: 3000, // Cambia cada 3 segundos
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+    </script>
+    
 </body>
 </html>
