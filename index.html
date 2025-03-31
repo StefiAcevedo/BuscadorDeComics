@@ -35,27 +35,44 @@
     </div>
     <main class="p-6 px-4	">
         <div class="flex justify-between justify-between flex-end flex-col">
-            <h2 class="text-stone-900 text-2xl">Busca tu comic</h2>
+            <h2 class="text-stone-900 text-2xl">Encuentra tu próxima aventura</h2><!-- titulo -->
             <div><!-- buscador general -->
                 <div class="mt-4 flex space-x-4 py-0"><!-- componente buscador-->
-                    <input type="text" id="search" placeholder="Buscar ⚡" class="p-2 rounded-md text-black border-solid	border-slate-200 border-2">
+                    <input type="text" id="search" placeholder="Busca tu comic ⚡" class="p-2 rounded-md text-black border-solid	border-slate-200 border-2">
                 </div>
-                <div><!-- contiene los filtros-->
-                    <div></div><!-- filtros-->
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-6 rounded-md justify-end">Buscar</button>
+                <div><!-- contenedor de filtros-->
+                    <!-- filtros-->
+                    <div class="mt-4 flex space-x-4 py-0 items-center">
+                        <!-- Filtro por Tipo -->
+                        <select id="filter-type" class="p-2 rounded-md text-black border-solid border-slate-200 border-2">
+                            <option value="">Todos los tipos</option>
+                            <option value="character">Personajes</option>
+                            <option value="location">Ubicaciones</option>
+                            <option value="episode">Episodios</option>
+                        </select>
+                    
+                        <!-- Filtro por Orden -->
+                        <select id="sort-order" class="p-2 rounded-md text-black border-solid border-slate-200 border-2">
+                            <option value="az">A-Z</option>
+                            <option value="za">Z-A</option>
+                            <option value="newest">Más Nuevo</option>
+                            <option value="oldest">Más Viejo</option>
+                        </select>
+                    </div>
+                    <!-- botón de busqueda -->
+                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-6 rounded-md justify-end">Explorar</button>
                 </div>
             </div>
         </div>
-
-
 
         <section id="results" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Acá van los comics :) -->
         </section>
     </main>
 
-    <footer class="bg-gray-800 py-4 text-center"><!-- footer -->
-        <p class="text-white">Gracias por buscar tu comic 💜</p>
+    <!-- footer -->
+    <footer class="bg-gray-800 py-4 text-center">
+        <p class="text-white">Gracias por visitarnos 💜</p>
     </footer>
     <!-- links -->
     <script src="index.js"></script>
