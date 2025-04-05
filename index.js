@@ -30,6 +30,43 @@ function mostrarPersonajes(personajes) {
     });
 }
 
+// lógica del paginador (6 resultados para que genere bloques de info pares)
+
+let currentPage = 1;
+const itemsPerPage = 6;
+let personajesData = []; // guardamos la data completa
+
+function actualizarPaginador() {
+  const totalPages = Math.ceil(personajesData.length / itemsPerPage);
+  document.getElementById("pageIndicator").textContent = `Página ${currentPage} de ${totalPages}`;
+  document.getElementById("prevPage").disabled = currentPage === 1;
+  document.getElementById("nextPage").disabled = currentPage === totalPages;
+}
+
+function mostrarPagina(page) {
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const itemsPagina = personajesData.slice(start, end);
+  mostrarPersonajes(itemsPagina);
+  actualizarPaginador();
+}
+
+document.getElementById("prevPage").addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      mostrarPagina(currentPage);
+    }
+  });
+  
+  document.getElementById("nextPage").addEventListener("click", () => {
+    const totalPages = Math.ceil(personajesData.length / itemsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      mostrarPagina(currentPage);
+    }
+  });
+
+
 // Mostrar detalle
 function mostrarDetalle(item, tipo) {
     detalleContenido.innerHTML = `
@@ -56,10 +93,16 @@ function obtenerPersonajesFiltrados() {
     if (status) url += `status=${status}&`;
     if (gender) url += `gender=${gender}&`;
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => mostrarPersonajes(data.results))
-        .catch(err => console.error(err));
+    fetch("https://rickandmortyapi.com/api/character")
+   .then(response => response.json())
+   .then(data => {
+    personajesData = data.results;
+    currentPage = 1;
+    mostrarPagina(currentPage);
+   })
+   .catch(error => console.error("Error al obtener los datos:", error));
+
+
 }
 
 // Event listener para el filtro tipo
@@ -107,8 +150,13 @@ function mostrarEpisodios(episodios) {
 // Al cargar la página
 fetch("https://rickandmortyapi.com/api/character")
     .then(response => response.json())
-    .then(data => mostrarPersonajes(data.results))
+    .then(data => {
+        personajesData = data.results;
+        currentPage = 1;
+        mostrarPagina(currentPage);
+    })
     .catch(error => console.error("Error al obtener los datos:", error));
+
 
 // Dispara la acción del botón explorar!
     document.getElementById("explorar-btn").addEventListener("click", () => {

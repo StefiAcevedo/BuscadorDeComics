@@ -92,8 +92,16 @@
         </div>
 
         <section id="results" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"><!-- ACTUALICE EL GAP DE 6 A 4 -->
-            <!-- Acá van los comics :) -->
+            <!-- Acá van los personajes y episodios :) -->
         </section>
+
+        <!-- Paginador -->
+        <div class="flex justify-center items-center mt-6 space-x-4">
+            <button id="prevPage" class="bg-gray-400 px-4 py-2 rounded text-white disabled:opacity-50">Anterior</button>
+            <span id="pageIndicator" class="text-black font-semibold">Página 1 de X</span>
+            <button id="nextPage" class="bg-gray-400 px-4 py-2 rounded text-white disabled:opacity-50">Siguiente</button>
+        </div>
+          
 
         <!-- Sección de detalle (CARGAR LA INFO- pendiente!)-->
         <section id="detalle" class="hidden mt-6">
