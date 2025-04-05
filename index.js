@@ -93,16 +93,14 @@ function obtenerPersonajesFiltrados() {
     if (status) url += `status=${status}&`;
     if (gender) url += `gender=${gender}&`;
 
-    fetch("https://rickandmortyapi.com/api/character")
-   .then(response => response.json())
-   .then(data => {
-    personajesData = data.results;
-    currentPage = 1;
-    mostrarPagina(currentPage);
-   })
-   .catch(error => console.error("Error al obtener los datos:", error));
-
-
+    fetch(url) // url con los filtros :)
+        .then(response => response.json())
+        .then(data => {
+            personajesData = data.results || [];
+            currentPage = 1;
+            mostrarPagina(currentPage);
+        })
+        .catch(error => console.error("Error al obtener los datos:", error));
 }
 
 // Event listener para el filtro tipo
