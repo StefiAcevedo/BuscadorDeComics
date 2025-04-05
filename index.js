@@ -109,3 +109,15 @@ fetch("https://rickandmortyapi.com/api/character")
     .then(response => response.json())
     .then(data => mostrarPersonajes(data.results))
     .catch(error => console.error("Error al obtener los datos:", error));
+
+// Dispara la acción del botón explorar!
+    document.getElementById("explorar-btn").addEventListener("click", () => {
+        const tipo = filterType.value;
+    
+        if (tipo === "character") {
+            obtenerPersonajesFiltrados();
+        } else if (tipo === "episode") {
+            obtenerEpisodios();
+        }
+    });
+    
