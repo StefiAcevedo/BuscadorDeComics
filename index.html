@@ -97,9 +97,20 @@
 
         <!-- Paginador -->
         <div class="flex justify-center items-center mt-6 space-x-4">
-            <button id="prevPage" class="bg-gray-400 px-4 py-2 rounded text-white disabled:opacity-50">Anterior</button>
+            <!-- botón anterior con icono -->
+            <button id="prevPage" class="bg-amber-500 hover:bg-orange-600 text-white px-3 py-2 rounded disabled:bg-gray-300 disabled:cursor-not-allowed transition flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <!-- paginador texto -->
             <span id="pageIndicator" class="text-black font-semibold">Página 1 de X</span>
-            <button id="nextPage" class="bg-gray-400 px-4 py-2 rounded text-white disabled:opacity-50">Siguiente</button>
+            <!-- botón siguiente con icono -->
+            <button id="nextPage" class="bg-amber-500 hover:bg-orange-600 text-white px-3 py-2 rounded disabled:bg-gray-300 disabled:cursor-not-allowed transition flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
           
 
