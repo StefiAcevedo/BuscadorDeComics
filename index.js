@@ -7,6 +7,8 @@ const detalleContenido = document.getElementById("detalle-contenido");
 const filterType = document.getElementById("filter-type");
 const filterStatus = document.getElementById("filter-status");
 const filterGender = document.getElementById("filter-gender");
+const searchInput = document.getElementById("search"); // buscador
+
 
 // Mostrar personajes
 function mostrarPersonajes(personajes) {
@@ -89,19 +91,40 @@ function obtenerPersonajesFiltrados() {
     let url = "https://rickandmortyapi.com/api/character/?";
     const status = filterStatus.value;
     const gender = filterGender.value;
+    const searchText = searchInput.value.trim().toLowerCase();
+
+    // Si hay texto y tiene menos de 3 letras, no hacemos la búsqueda
+    if (searchText && searchText.length < 3) {
+        mostrarMensajeError("Por favor, escribí al menos 3 letras para buscar.");
+        return;
+    }
 
     if (status) url += `status=${status}&`;
     if (gender) url += `gender=${gender}&`;
+    if (searchText) url += `name=${searchText}&`;
 
-    fetch(url) // url con los filtros :)
-        .then(response => response.json())
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("No se encontraron resultados.");
+            }
+            return response.json();
+        })
         .then(data => {
             personajesData = data.results || [];
-            currentPage = 1;
-            mostrarPagina(currentPage);
+            if (personajesData.length === 0) {
+                mostrarMensajeError("😥 No se encontraron resultados.");
+            } else {
+                currentPage = 1;
+                mostrarPagina(currentPage);
+            }
         })
-        .catch(error => console.error("Error al obtener los datos:", error));
+        .catch(error => {
+            mostrarMensajeError("😥 No se encontraron resultados.");
+            console.error("Error al obtener los datos:", error);
+        });
 }
+
 
 // Event listener para el filtro tipo
 filterType.addEventListener("change", () => {
@@ -157,13 +180,23 @@ fetch("https://rickandmortyapi.com/api/character")
 
 
 // Dispara la acción del botón explorar!
-    document.getElementById("explorar-btn").addEventListener("click", () => {
-        const tipo = filterType.value;
+document.getElementById("explorar-btn").addEventListener("click", () => {
+    const tipo = filterType.value;
+
+    if (tipo === "character" || tipo === "") {
+        obtenerPersonajesFiltrados();
+    } else if (tipo === "episode") {
+        obtenerEpisodios();
+    }
+});
+
     
-        if (tipo === "character") {
-            obtenerPersonajesFiltrados();
-        } else if (tipo === "episode") {
-            obtenerEpisodios();
-        }
-    });
-    
+
+// Para mostrar mensajes de error en el buscador:
+function mostrarMensajeError(mensaje) {
+    resultsContainer.innerHTML = `
+        <div class="text-center text-white bg-red-500 p-4 rounded-md">${mensaje}</div>
+    `;
+    detalleSection.classList.add("hidden");
+    resultsContainer.classList.remove("hidden");
+}
