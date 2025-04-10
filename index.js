@@ -8,6 +8,8 @@ const filterType = document.getElementById("filter-type");
 const filterStatus = document.getElementById("filter-status");
 const filterGender = document.getElementById("filter-gender");
 const searchInput = document.getElementById("search"); // buscador
+const pagination = document.getElementById("pagination"); // paginador
+
 
 
 // Mostrar personajes
@@ -78,13 +80,17 @@ function mostrarDetalle(item, tipo) {
     `;
     detalleSection.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
+    pagination.classList.add("hidden"); // OCULTA el paginador en pagina detalle
 }
+
 
 // Volver
 function volverAInicio() {
     detalleSection.classList.add("hidden");
     resultsContainer.classList.remove("hidden");
+    pagination.classList.remove("hidden"); // VUELVE A MOSTRAR el paginador
 }
+
 
 // Obtener personajes por filtros
 function obtenerPersonajesFiltrados() {
@@ -191,7 +197,10 @@ function mostrarEpisodios(episodios) {
 
         resultsContainer.appendChild(div);
     });
+
+    pagination.classList.add("hidden"); // oculta el paginador cuando se ve episodios
 }
+
 
 // Al cargar la página
 fetch("https://rickandmortyapi.com/api/character")
@@ -217,14 +226,8 @@ document.getElementById("explorar-btn").addEventListener("click", () => {
 
     
 
-// Para mostrar mensajes de error en el buscador:
-function mostrarMensajeError(mensaje) {
-    resultsContainer.innerHTML = `
-        <div class="text-center text-white bg-red-500 p-4 rounded-md">${mensaje}</div>
-    `;
-    detalleSection.classList.add("hidden");
-    resultsContainer.classList.remove("hidden");
-}
+//elimino mostrar mensaje de error estaba duplicado y mal el nombre
+
 
 
 // Modal de error 
