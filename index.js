@@ -143,11 +143,36 @@ filterType.addEventListener("change", () => {
 
 // Obtener episodios
 function obtenerEpisodios() {
-    fetch("https://rickandmortyapi.com/api/episode")
-        .then(res => res.json())
-        .then(data => mostrarEpisodios(data.results))
-        .catch(err => console.error(err));
+    const searchText = searchInput.value.trim().toLowerCase();
+    let url = "https://rickandmortyapi.com/api/episode/";
+
+    if (searchText) {
+        if (searchText.length < 3) {
+            mostrarMensajeError("Por favor, escribí al menos 3 letras para buscar.");
+            return;
+        }
+        url += `?name=${searchText}`;
+    }
+
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("No se encontraron resultados.");
+            return res.json();
+        })
+        .then(data => {
+            const episodios = data.results || [];
+            if (episodios.length === 0) {
+                mostrarMensajeError("😥 No se encontraron episodios.");
+            } else {
+                mostrarEpisodios(episodios);
+            }
+        })
+        .catch(err => {
+            mostrarMensajeError("😥 No se encontraron episodios.");
+            console.error("Error al obtener episodios:", err);
+        });
 }
+
 
 function mostrarEpisodios(episodios) {
     resultsContainer.innerHTML = "";
@@ -200,3 +225,19 @@ function mostrarMensajeError(mensaje) {
     detalleSection.classList.add("hidden");
     resultsContainer.classList.remove("hidden");
 }
+
+
+// Modal de error 
+function mostrarMensajeError(mensaje) {
+    const modal = document.getElementById("modal-error");
+    const texto = document.getElementById("modal-error-text");
+  
+    texto.textContent = mensaje;
+    modal.classList.remove("hidden");
+  }
+  
+  // Cierra el modal
+  document.getElementById("cerrar-modal").addEventListener("click", () => {
+    document.getElementById("modal-error").classList.add("hidden");
+  });
+
