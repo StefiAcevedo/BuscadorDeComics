@@ -7,6 +7,10 @@ const detalleContenido = document.getElementById("detalle-contenido");
 const filterType = document.getElementById("filter-type");
 const filterStatus = document.getElementById("filter-status");
 const filterGender = document.getElementById("filter-gender");
+const searchInput = document.getElementById("search"); // buscador
+const pagination = document.getElementById("pagination"); // paginador
+
+
 
 // Mostrar personajes
 function mostrarPersonajes(personajes) {
@@ -76,32 +80,57 @@ function mostrarDetalle(item, tipo) {
     `;
     detalleSection.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
+    pagination.classList.add("hidden"); // OCULTA el paginador en pagina detalle
 }
+
 
 // Volver
 function volverAInicio() {
     detalleSection.classList.add("hidden");
     resultsContainer.classList.remove("hidden");
+    pagination.classList.remove("hidden"); // VUELVE A MOSTRAR el paginador
 }
+
 
 // Obtener personajes por filtros
 function obtenerPersonajesFiltrados() {
     let url = "https://rickandmortyapi.com/api/character/?";
     const status = filterStatus.value;
     const gender = filterGender.value;
+    const searchText = searchInput.value.trim().toLowerCase();
+
+    // Si hay texto y tiene menos de 3 letras, no hacemos la búsqueda
+    if (searchText && searchText.length < 3) {
+        mostrarMensajeError("Por favor, escribí al menos 3 letras para buscar.");
+        return;
+    }
 
     if (status) url += `status=${status}&`;
     if (gender) url += `gender=${gender}&`;
+    if (searchText) url += `name=${searchText}&`;
 
-    fetch(url) // url con los filtros :)
-        .then(response => response.json())
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("No se encontraron resultados.");
+            }
+            return response.json();
+        })
         .then(data => {
             personajesData = data.results || [];
-            currentPage = 1;
-            mostrarPagina(currentPage);
+            if (personajesData.length === 0) {
+                mostrarMensajeError("😥 No se encontraron resultados.");
+            } else {
+                currentPage = 1;
+                mostrarPagina(currentPage);
+            }
         })
-        .catch(error => console.error("Error al obtener los datos:", error));
+        .catch(error => {
+            mostrarMensajeError("😥 No se encontraron resultados.");
+            console.error("Error al obtener los datos:", error);
+        });
 }
+
 
 // Event listener para el filtro tipo
 filterType.addEventListener("change", () => {
@@ -120,11 +149,36 @@ filterType.addEventListener("change", () => {
 
 // Obtener episodios
 function obtenerEpisodios() {
-    fetch("https://rickandmortyapi.com/api/episode")
-        .then(res => res.json())
-        .then(data => mostrarEpisodios(data.results))
-        .catch(err => console.error(err));
+    const searchText = searchInput.value.trim().toLowerCase();
+    let url = "https://rickandmortyapi.com/api/episode/";
+
+    if (searchText) {
+        if (searchText.length < 3) {
+            mostrarMensajeError("Por favor, escribí al menos 3 letras para buscar.");
+            return;
+        }
+        url += `?name=${searchText}`;
+    }
+
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("No se encontraron resultados.");
+            return res.json();
+        })
+        .then(data => {
+            const episodios = data.results || [];
+            if (episodios.length === 0) {
+                mostrarMensajeError("😥 No se encontraron episodios.");
+            } else {
+                mostrarEpisodios(episodios);
+            }
+        })
+        .catch(err => {
+            mostrarMensajeError("😥 No se encontraron episodios.");
+            console.error("Error al obtener episodios:", err);
+        });
 }
+
 
 function mostrarEpisodios(episodios) {
     resultsContainer.innerHTML = "";
@@ -143,7 +197,10 @@ function mostrarEpisodios(episodios) {
 
         resultsContainer.appendChild(div);
     });
+
+    pagination.classList.add("hidden"); // oculta el paginador cuando se ve episodios
 }
+
 
 // Al cargar la página
 fetch("https://rickandmortyapi.com/api/character")
@@ -157,13 +214,33 @@ fetch("https://rickandmortyapi.com/api/character")
 
 
 // Dispara la acción del botón explorar!
-    document.getElementById("explorar-btn").addEventListener("click", () => {
-        const tipo = filterType.value;
+document.getElementById("explorar-btn").addEventListener("click", () => {
+    const tipo = filterType.value;
+
+    if (tipo === "character" || tipo === "") {
+        obtenerPersonajesFiltrados();
+    } else if (tipo === "episode") {
+        obtenerEpisodios();
+    }
+});
+
     
-        if (tipo === "character") {
-            obtenerPersonajesFiltrados();
-        } else if (tipo === "episode") {
-            obtenerEpisodios();
-        }
-    });
-    
+
+//elimino mostrar mensaje de error estaba duplicado y mal el nombre
+
+
+
+// Modal de error 
+function mostrarMensajeError(mensaje) {
+    const modal = document.getElementById("modal-error");
+    const texto = document.getElementById("modal-error-text");
+  
+    texto.textContent = mensaje;
+    modal.classList.remove("hidden");
+  }
+  
+  // Cierra el modal
+  document.getElementById("cerrar-modal").addEventListener("click", () => {
+    document.getElementById("modal-error").classList.add("hidden");
+  });
+
