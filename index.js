@@ -99,19 +99,32 @@ if (tipo === "character") {
 // Trae los pesonajes de un episodio
 if (tipo === "episode") {
     const contenedor = document.getElementById("detalle-extra");
-    contenedor.innerHTML = "<p class='font-semibold'>Personajes:</p><ul class='list-disc list-inside'></ul>";
+    contenedor.innerHTML = "<p class='font-semibold mb-2'>Personajes:</p><ul class='list-none list-inside'></ul>";
 
     const ul = contenedor.querySelector("ul");
 
+    // Traer personajes en paralelo
     const promises = item.characters.map(url => fetch(url).then(res => res.json()));
     Promise.all(promises).then(personajes => {
         personajes.forEach(pj => {
             const li = document.createElement("li");
-            li.textContent = pj.name;
+            li.classList.add("flex", "items-center", "gap-2", "mb-2");
+
+            const img = document.createElement("img");
+            img.src = pj.image;
+            img.alt = pj.name;
+            img.classList.add("w-10", "h-10", "rounded-full", "object-cover");
+
+            const span = document.createElement("span");
+            span.textContent = pj.name;
+
+            li.appendChild(img);
+            li.appendChild(span);
             ul.appendChild(li);
         });
     });
 }
+
 
     detalleSection.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
