@@ -74,10 +74,29 @@ document.getElementById("prevPage").addEventListener("click", () => {
 // Mostrar detalle
 function mostrarDetalle(item, tipo) {
     detalleContenido.innerHTML = `
-        <img src="${item.image || 'imagenes/hero-2.jpeg'}" alt="${item.name}" class="w-full rounded-md mb-4">
-        <h2 class="text-2xl font-bold mb-2">${item.name}</h2>
-        <p>${tipo === "character" ? `${item.status} - ${item.species} - ${item.gender}` : item.episode}</p>
-    `;
+    <img src="${item.image || 'imagenes/hero-2.jpeg'}" alt="${item.name}" class="w-full rounded-md mb-4">
+    <h2 class="text-2xl font-bold mb-2">${item.name}</h2>
+    <p>${tipo === "character" ? `${item.status} - ${item.species} - ${item.gender}` : item.episode}</p>
+    <div id="detalle-extra" class="mt-4"></div>
+`;
+
+if (tipo === "character") {
+    const contenedor = document.getElementById("detalle-extra");
+    contenedor.innerHTML = "<p class='font-semibold'>Episodios:</p><ul class='list-disc list-inside'></ul>";
+
+    const ul = contenedor.querySelector("ul");
+
+    // Traer episodios en paralelo
+    const promises = item.episode.map(url => fetch(url).then(res => res.json()));
+    Promise.all(promises).then(episodios => {
+        episodios.forEach(ep => {
+            const li = document.createElement("li");
+            li.textContent = `${ep.name} (${ep.episode})`;
+            ul.appendChild(li);
+        });
+    });
+}
+
     detalleSection.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
     pagination.classList.add("hidden"); // OCULTA el paginador en pagina detalle
