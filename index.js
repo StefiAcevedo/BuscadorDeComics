@@ -96,6 +96,22 @@ if (tipo === "character") {
         });
     });
 }
+// Trae los pesonajes de un episodio
+if (tipo === "episode") {
+    const contenedor = document.getElementById("detalle-extra");
+    contenedor.innerHTML = "<p class='font-semibold'>Personajes:</p><ul class='list-disc list-inside'></ul>";
+
+    const ul = contenedor.querySelector("ul");
+
+    const promises = item.characters.map(url => fetch(url).then(res => res.json()));
+    Promise.all(promises).then(personajes => {
+        personajes.forEach(pj => {
+            const li = document.createElement("li");
+            li.textContent = pj.name;
+            ul.appendChild(li);
+        });
+    });
+}
 
     detalleSection.classList.remove("hidden");
     resultsContainer.classList.add("hidden");
